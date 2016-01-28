@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration>
+  <logger name="ch.qos.logback" level="OFF" additivity="false" />
+
+  <jmxConfigurator />
+  <property resource="config/${PC_ENVIRONMENT:-local}-${flavor:-development}/config.properties" />
+
+  <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+    <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+      <pattern>%-5p %d [%t] [%replace(objectid=%X{objectId} objecttypeid=%X{objectTypeId} rundatetime=%X{runDate} guid=%X{guid} sessionguid=%X{sessionGuid}){'(\w+=)( |$)',''}] %c{20}: %m%n</pattern>
+    </encoder>
+  </appender>
+
+ 
+
+  <logger name="org.apache">
+    <level value="WARN" />
+  </logger>
+
+  <root>
+    <level value="INFO" />
+    <appender-ref ref="CONSOLE" />
+  </root>
+</configuration>
