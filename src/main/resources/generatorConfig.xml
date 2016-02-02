@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<generatorConfiguration>
+<classPathEntry location="C:\Users\U6036058\.m2\repository\com\oracle\ojdbc6\11.2.0.3.0\ojdbc6-11.2.0.3.0.jar" /> 
+ <context id="Oracle" targetRuntime="MyBatis3" defaultModelType="flat">
+  <jdbcConnection driverClass="oracle.jdbc.OracleDriver"
+   connectionURL="jdbc:oracle:thin:@//c419jvfdw01t.int.thomsonreuters.com:1521/ort506a.int.thomsonreuters.com" userId="emerald"
+   password="test" />
+  <javaModelGenerator targetPackage="com.thomsonreuters.ccertool.vo"
+   targetProject="CCERTool/src/test/java" />
+   
+  <sqlMapGenerator targetPackage="com.thomsonreuters.ccertool.vo"
+   targetProject="CCERTool/src/test/java" />
+   
+  <javaClientGenerator targetPackage="com.thomsonreuters.ccertool.vo"
+   targetProject="CCERTool/src/test/java" type="XMLMAPPER">
+   <property name="enableSubPackages" value="true" />
+  </javaClientGenerator>
+  
+  <table schema="emerald" tableName="projects" domainObjectName="projects" 
+   enableCountByExample="false"
+   enableDeleteByExample="false"
+   enableSelectByExample="false"
+   enableUpdateByExample="false"/>
+ </context>
+</generatorConfiguration>
