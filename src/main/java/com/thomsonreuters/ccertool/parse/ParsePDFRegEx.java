@@ -55,8 +55,8 @@ public enum ParsePDFRegEx {
 	LONGITUDE("东经[\\s]*([\\s\\S]*?)[,。]"),
 	LATITUDE("北纬[\\s]*([\\s\\S]*?)[,。]"),
 	INSTALLED_CAPACITY("总装机容量为\\s*(.*?MW)"),//TODO 多个，确认
-	ANNUAL_ELECTRICITY_PRODUCTION(""),//TODO 发电量，关键字不同，单位也不同，难以准确提取
-	PROJECT_INVESTMENT(""),//TODO 项目总投资，关键字不同，难以准确提取
+	ANNUAL_ELECTRICITY_PRODUCTION("上网电量[为：]([\\s\\S]*?)MW"),//TODO 发电量，关键字不同，单位也不同，难以准确提取
+	PROJECT_INVESTMENT("((总投资|静态投资|项目投资)([\\s\\S]*?)(元|万元))",3),//TODO 项目总投资，关键字不同，难以准确提取
 	PROJECT_HOST_ADDRESS("申请项目备案的企业法人联系信息[\\s\\S]*地址：([\\s\\S]*?)\\s\\n"),
 	PROJECT_HOST_ZIP("申请项目备案的企业法人联系信息[\\s\\S]*邮政编码：([\\s\\S]*?)\\s\\n"),
 	PROJECT_HOST_PHONE("申请项目备案的企业法人联系信息[\\s\\S]*电话：([\\s\\S]*?)\\s\\n"),
@@ -72,11 +72,19 @@ public enum ParsePDFRegEx {
 
 	
 	private String regEx;
-	
+	private  int groupIndex = 1;
 	private ParsePDFRegEx(String regEx){
 		this.regEx = regEx;
+	}
+	private ParsePDFRegEx(String regEx,int groupIndex){
+		this.regEx = regEx;
+		this.groupIndex = groupIndex;
 	}
 	public String getRegEx(){
 		return regEx;
 	}
+	public int getGroupIndex(){
+		return groupIndex;
+	}
+	
 }
