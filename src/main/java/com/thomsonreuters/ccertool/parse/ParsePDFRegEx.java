@@ -68,7 +68,16 @@ public enum ParsePDFRegEx {
 	REPRESENTATIVE_PHONE("申请项目备案的企业法人联系信息[\\s\\S]*电话：([\\s\\S]*?)\\s\\n"),
 	REPRESENTATIVE_FAX("申请项目备案的企业法人联系信息[\\s\\S]*传真：([\\s\\S]*?)\\s\\n"),
 	REPRESENTATIVE_EMAIL("申请项目备案的企业法人联系信息[\\s\\S]*电子邮件：([\\s\\S]*?)\\s\\n"),
-	UNFCCC_URL("");//TODO 不知是什么
+	UNFCCC_URL(""),//TODO 不知是什么
+
+	//phase three 检测报告
+	
+	REGISTRATION_NUMBER("项目活动备案编号([\\s\\S]*?)\\s\\n"),//项目活动备案编号	
+	MR_COMPLETE_DATE("监测报告的完成日期([\\s\\S]*?)\\s\\n"),	//监测报告完成日期
+	ER_START_DATE_phase3("补充计入期([\\s\\S]*?)-"),//本监测期覆盖日期-起始日	
+	ER_END_DATE_phase3("补充计入期[\\s\\S]*?-([\\s\\S]*?)项目业主"),	//本监测期覆盖日期-截止日
+	ER_PLANNED_VOLUME("项目设计文件中预估的[\\s\\S]*?人为净碳汇量([\\s\\S]*?)tCO2e"),	//项目设计文件中预估的本监测期内温室气体减排量或人为净碳汇量
+	ER_MONITOR_VOLUME("本监测期内实际的[\\s\\S]*?人为净碳汇量([\\s\\S]*?)tCO2e");	//本监测期内实际的温室气体减排量或人为净碳汇量
 
 	
 	private String regEx;

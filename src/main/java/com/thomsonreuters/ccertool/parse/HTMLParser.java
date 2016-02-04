@@ -12,24 +12,20 @@ import org.htmlparser.NodeFilter;
 import org.htmlparser.Parser;
 import org.htmlparser.util.NodeList;
 import org.htmlparser.util.ParserException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 public class HTMLParser {
-	public static void main(String[]args) throws ParserException{
-		String[] keysZh = {"备案号","项目活动名称","项目业主","项目类别","项目类型","方法学","预计减排量","计入期","审定机构","审定报告","备案时间","其他相关文件"};
-		//String[] keysEn = {"registration_number","project_name","project_developer","project_category","project_type","project_methodology","planned_annual_er","er_date","validator","validator_report_file","registration_date","ppd_file"};
+	private static final Logger log = LoggerFactory.getLogger(HTMLParser.class);
+	public static HashMap getTableContent(String url,String[] keysZh) throws ParserException{
 		List keyWords = new ArrayList();
 		Collections.addAll(keyWords, keysZh);
-//		HashMap keyMap = new HashMap();
-//		for(int i=0;i<keysZh.length;i++){
-//			keyMap.put(keysZh[i], keysEn[i]);
-//		}
-		
-		Parser parser = new Parser("http://cdm.ccchina.gov.cn/Detail.aspx?newsId=47637&TId=164");
+		Parser parser = new Parser(url);
 		parser.setEncoding("UTF-8");
 		NodeFilter nodeFilter = new NodeFilter(){
 			public boolean accept(Node node) {
-				if(node.getText().startsWith("P")&&node.getFirstChild()!=null && node.getFirstChild().getText().startsWith("SPAN")){
+				if(node.getText().toUpperCase().startsWith("P")&&node.getFirstChild()!=null && node.getFirstChild().getText().toUpperCase().startsWith("SPAN")){
 					return true;
 				}else{
 					return false;
@@ -44,11 +40,11 @@ public class HTMLParser {
 			Node node = list.elementAt(i);
 			NodeList spans = node.getChildren();
 			for(int j=0;j<spans.size();j++){
-				String temp = spans.elementAt(j).getFirstChild().getText();
+				String temp = spans.elementAt(j).getFirstChild()==null?"":spans.elementAt(j).getFirstChild().getText();
 				if(keyWords.contains(temp)){
 					sb.append("\n");
 					sb.append(temp);
-					sb.append(":");
+					sb.append("::");
 				}else{
 					sb.append(temp);
 				}
@@ -56,18 +52,25 @@ public class HTMLParser {
 			
 		}
 		String content = sb.toString().substring(1);
-		System.out.println("content:"+content);
+		log.info("content:"+content);
 		String[] contentArray = content.split("\n");
 		HashMap contentMap = new HashMap();
 		for(int i=0;i<contentArray.length;i++){
-			contentMap.put(contentArray[i].split(":")[0], contentArray[i].split(":").length==1?"":contentArray[i].split(":")[1]);
+			contentMap.put(contentArray[i].split("::")[0], contentArray[i].split("::").length==1?"":contentArray[i].split("::")[1]);
 		}
 		
-		System.out.println("size:"+contentMap.size());
 		for (Iterator keys = contentMap.keySet().iterator(); keys.hasNext();) {
 			String key = (String)keys.next();
-			System.out.println(key+":"+contentMap.get(key));
+			log.info(key+":"+contentMap.get(key));
 			
 		}
+		
+		return contentMap;
+	}
+	
+	public static void main(String[]args) throws ParserException{
+		
+		//String[] keysEn = {"registration_number","project_name","project_developer","project_category","project_type","project_methodology","planned_annual_er","er_date","validator","validator_report_file","registration_date","ppd_file"};
+		
 	}
 }
