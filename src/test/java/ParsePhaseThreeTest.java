@@ -19,8 +19,10 @@ public class ParsePhaseThreeTest {
 
 		 InputStream input;
 		try {
+			System.out.println("========================解析结果 begin=================================");
 			input = new FileInputStream("C:\\Users\\U6036058\\Documents\\workfiles\\Task\\CCER-HONGLIANG\\芜湖海螺水泥有限公司218MW余热发电工程-检测报告.pdf");
 			phaseThree.parseProjectInfo(input);
+			System.out.println("========================解析结果 end=================================");
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

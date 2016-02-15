@@ -14,6 +14,7 @@ public class ParseUtil {
 	 * @return
 	 */
 	public static String replaceLinebreak(String str){
+		if(str==null)return "";
 		return str.replaceAll("\\s", "");
 	} 
 	/**
@@ -33,7 +34,7 @@ public class ParseUtil {
 		Matcher matcher = pattern.matcher(info);
 		String value="";
 		if(matcher.find()){
-			value =  matcher.group(groupIndex);
+			value =  replaceLinebreak(matcher.group(groupIndex));
 			log.info(regName+":"+value);
 		}else{
 			log.error(regName+" not found");

@@ -52,7 +52,7 @@ public class HTMLParser {
 			
 		}
 		String content = sb.toString().substring(1);
-		log.info("content:"+content);
+		log.debug("content:"+content);
 		String[] contentArray = content.split("\n");
 		HashMap contentMap = new HashMap();
 		for(int i=0;i<contentArray.length;i++){
