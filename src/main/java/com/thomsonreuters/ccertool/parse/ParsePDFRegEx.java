@@ -45,15 +45,15 @@ public enum ParsePDFRegEx {
 	PROJECT_TYPE("项目类型：([\\s\\S]*?)\\s\\n"),
 	//PROJECT_TYPE("项目类型：(?s)(.*?)"),
 	PROJECT_METHODOLOGY("方法学：([\\s\\S]*?)\\s\\n"),
-	PLANNED_ANNUAL_ER("年均减排量：([\\s\\S]*?)\\s\\n"),
+	PLANNED_ANNUAL_ER("预计的温室气体减排量|年均减排量：([\\s\\S]*?)\\s\\n"),
 	ER_START_DATE("项目补充计入期:([\\s\\S]*?)~"),
 	ER_END_DATE("项目补充计入期:[\\s\\S]*?~([\\s\\S]*?)\\s\\n"),//TODO 有的文档里面没有，格式是否统一
 	
 	PROJECT_LOCATION_STATE("省/直辖市/自治区，等[\\s]*>>[\\s]*([\\s\\S]*?)\\s\\n"),
 //	LONGITUDE("东.*[\\s]*((\\d{1,2}|[1][0-7]\\d)[°](\\d|5\\d)[′](\\d|5\\d)[″])|(180°0′0″)"),
 //	LATITUDE("北纬[\\s]*(((\\d|[1-8]\\d)[°](\\d|5\\d)[′](\\d|5\\d)[″])|(90°0′0″))"),
-	LONGITUDE("东经[\\s]*([\\s\\S]*?)[,。]"),
-	LATITUDE("北纬[\\s]*([\\s\\S]*?)[,。]"),
+	LONGITUDE("东经[\\s]*([\\s\\S]*?)(\\s*)[，,。]"),
+	LATITUDE("北纬[\\s]*([\\s\\S]*?)(\\s*)[，,。]"),
 	INSTALLED_CAPACITY("总装机容量为\\s*(.*?MW)"),//TODO 多个，确认
 	ANNUAL_ELECTRICITY_PRODUCTION("上网电量[为：]([\\s\\S]*?)MW"),//TODO 发电量，关键字不同，单位也不同，难以准确提取
 	PROJECT_INVESTMENT("((总投资|静态投资|项目投资)([\\s\\S]*?)(元|万元))",3),//TODO 项目总投资，关键字不同，难以准确提取

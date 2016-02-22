@@ -7,7 +7,8 @@ import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.util.PDFTextStripper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
+import org.springframework.stereotype.Service;
+@Service
 public class ParsePhaseOne {
 
 	private static final Logger log = LoggerFactory
@@ -16,7 +17,7 @@ public class ParsePhaseOne {
 	public static void main(String[] args) {
 	}
 
-	public void parseProjectBasicInfo(InputStream in) {
+	public void parseProjectBasicInfo(InputStream in) throws IOException {
 		try {
 			PDDocument doc = PDDocument.load(in);
 			PDFTextStripper s = new PDFTextStripper();
@@ -154,6 +155,8 @@ public class ParsePhaseOne {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}finally{
+			in.close();
 		}
 	}
 

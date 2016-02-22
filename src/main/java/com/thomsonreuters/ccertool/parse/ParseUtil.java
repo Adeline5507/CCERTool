@@ -1,5 +1,6 @@
 package com.thomsonreuters.ccertool.parse;
 
+import java.io.File;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -41,5 +42,18 @@ public class ParseUtil {
 		}
 		
 		return value;
+	}
+	
+	/**
+	 * 解析完成后删除临时文件
+	 * @param path
+	 */
+	public static void removeTmpFile(String path){
+		File file = new File(path);
+		if(!file.exists()){
+			log.error("file:"+path+" does not exist");
+		}else{
+			file.delete();
+		}
 	}
 }

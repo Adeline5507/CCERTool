@@ -17,7 +17,7 @@
    <property name="enableSubPackages" value="true" />
   </javaClientGenerator>
   
-  <table schema="emerald" tableName="projects" domainObjectName="projects" 
+  <table schema="emerald" tableName="project_documents" domainObjectName="project_documents" 
    enableCountByExample="false"
    enableDeleteByExample="false"
    enableSelectByExample="false"
