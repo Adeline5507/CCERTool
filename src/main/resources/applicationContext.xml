@@ -9,4 +9,6 @@
   <!-- DB beans.   -->
   <import resource="classpath:spring-db.xml"/>
   <context:component-scan base-package="com.thomsonreuters.ccertool.*"/>
+  <!-- Jetty (web) context. -->
+  <!-- <import resource="classpath:jetty-server.xml" /> -->
 </beans>

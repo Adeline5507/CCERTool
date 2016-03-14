@@ -6,6 +6,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.thomsonreuters.ccertool.dao.ProjectsDao;
+import com.thomsonreuters.ccertool.vo.ProjectVo;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -15,6 +16,6 @@ public class ProjectsDaoTest {
 	private ProjectsDao dao;
 	@Test
 	public void searchProjectInfoTest(){
-		dao.searchProjectInfo();
+		dao.searchProjectInfo(new ProjectVo());
 	}
 }

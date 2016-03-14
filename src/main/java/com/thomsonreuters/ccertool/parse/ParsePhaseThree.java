@@ -7,7 +7,8 @@ import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.util.PDFTextStripper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
+import org.springframework.stereotype.Service;
+@Service
 public class ParsePhaseThree {
 	private static final Logger log = LoggerFactory
 			.getLogger(ParsePhaseThree.class);
