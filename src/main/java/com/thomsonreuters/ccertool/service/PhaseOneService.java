@@ -2,6 +2,8 @@ package com.thomsonreuters.ccertool.service;
 
 import java.io.ByteArrayInputStream;
 import java.io.FileInputStream;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,13 +32,13 @@ public class PhaseOneService {
 		log.info("PhaseOneService delete tmp document finished");
 	}
 	
-	public void pddLoadAndParseInMemory(ProjectDocumentVo vo) throws Exception{
+	public Map pddLoadAndParseInMemory(ProjectDocumentVo vo) throws Exception{
 		log.info("PhaseOneService begin");
 		byte[] bytes = dao.getProjectDocumentToMemory(vo);
 		log.info("PhaseOneService get document in memory finished");
-		parser.parseProjectBasicInfo(new ByteArrayInputStream(bytes));
+		Map map = parser.parseProjectBasicInfo(new ByteArrayInputStream(bytes));
 		log.info("PhaseOneService parse finished");
-		
+		return map;
 	}
 
 }

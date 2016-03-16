@@ -1,6 +1,8 @@
 package com.thomsonreuters.ccertool.controller;
 
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -11,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -18,6 +21,7 @@ import com.thomsonreuters.ccertool.dao.ProjectDocumentDao;
 import com.thomsonreuters.ccertool.dao.ProjectsDao;
 import com.thomsonreuters.ccertool.service.PhaseOneService;
 import com.thomsonreuters.ccertool.service.PhaseThreeService;
+import com.thomsonreuters.ccertool.vo.ProjectDocumentVo;
 import com.thomsonreuters.ccertool.vo.ProjectVo;
 @Controller
 public class CCERController {
@@ -72,5 +76,52 @@ public class CCERController {
     	return "documents";
     }
 
+    @RequestMapping(value = "/doParse", method = RequestMethod.GET)
+    @ResponseBody
+    public void doParse(HttpServletRequest request,HttpServletResponse response){
+    	String PROJECT_ID = request.getParameter("PROJECT_ID");
+    	String PROJECT_DOCUMENT_TYPE_ID = request.getParameter("PROJECT_DOCUMENT_TYPE_ID");
+    	String project_document_id = request.getParameter("PROJECT_DOCUMENT_ID");
+    	ProjectDocumentVo vo = new ProjectDocumentVo();
+    	vo.setProjectId(Integer.parseInt(PROJECT_ID));
+    	vo.setProjectDocumentTypeId(Integer.parseInt(PROJECT_DOCUMENT_TYPE_ID));
+    	try {
+    		Map map = null;
+    		if("8".equals(PROJECT_DOCUMENT_TYPE_ID)){
+    			map = phaseOneService.pddLoadAndParseInMemory(vo);
+    		}else if("9".equals(PROJECT_DOCUMENT_TYPE_ID)){
+    			map = phaseThreeService.monitorFileLoadAndParseInMemeory(vo);
+    		}
+    		
+    		if(map!=null){
+				request.getSession(true).setAttribute(project_document_id,map);
+				String html = "<html><head><title>result</title></head><body>";
+				response.getWriter().println(html);
+				response.getWriter().println("<input type=\"button\" value=\"save\" onclick=\"window.parent.doSave("+project_document_id+")\"/><br/>");
+				//response.getWriter().println("<input type=\"button\" value=\"save\" onclick=\"self.location.href=/doSave?project_document_id="+project_document_id+"\"/><br/>");
+				for (Iterator iterator = map.keySet().iterator(); iterator.hasNext();) {
+					String key = (String)iterator.next();
+					response.getWriter().println("<div style=\"padding:3px; \">"+key+":"+(String)map.get(key)+"</div>"); 
+				}
+				response.getWriter().println("<input type=\"button\" value=\"save\" onclick=\"window.parent.doSave("+project_document_id+")\"/>");
+				response.getWriter().println("</body></html>");
+    		}else{
+    			response.getWriter().println("该文档暂时不支持解析");
+    		}
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    }
     
+    @RequestMapping(value = "/doSave", method = RequestMethod.GET)
+    @ResponseBody
+    public String doSave(HttpServletRequest request,HttpServletResponse response){
+    	String project_document_id = request.getParameter("project_document_id"); 
+    	log.info("project_document_id:"+project_document_id);
+    	Map map = (Map)request.getSession().getAttribute(project_document_id);
+    	log.info("map:"+map);
+    	return project_document_id;
+    }
 }

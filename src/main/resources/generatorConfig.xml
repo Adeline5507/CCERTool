@@ -17,10 +17,46 @@
    <property name="enableSubPackages" value="true" />
   </javaClientGenerator>
   
-  <table schema="emerald" tableName="project_documents" domainObjectName="project_documents" 
+  <!-- <table schema="emerald" tableName="project_documents" domainObjectName="project_documents" 
+   enableCountByExample="false"
+   enableDeleteByExample="false"
+   enableSelectByExample="false"
+   enableUpdateByExample="false"/> -->
+  <table schema="emerald" tableName="PROJECT_TYPES" domainObjectName="PROJECT_TYPES" 
    enableCountByExample="false"
    enableDeleteByExample="false"
    enableSelectByExample="false"
    enableUpdateByExample="false"/>
+   
+  <table schema="emerald" tableName="methodologies" domainObjectName="methodologies" 
+   enableCountByExample="false"
+   enableDeleteByExample="false"
+   enableSelectByExample="false"
+   enableUpdateByExample="false"/>
+   
+  <table schema="emerald" tableName="partners" domainObjectName="partners" 
+   enableCountByExample="false"
+   enableDeleteByExample="false"
+   enableSelectByExample="false"
+   enableUpdateByExample="false"/>
+   
+  <!-- <table schema="emerald" tableName="partners_ml" domainObjectName="partners_ml" 
+   enableCountByExample="false"
+   enableDeleteByExample="false"
+   enableSelectByExample="false"
+   enableUpdateByExample="false"/> -->
+   
+  <table schema="emerald" tableName="REPRESENTATIVES" domainObjectName="REPRESENTATIVES" 
+   enableCountByExample="false"
+   enableDeleteByExample="false"
+   enableSelectByExample="false"
+   enableUpdateByExample="false"/>
+   
+ <!--  <table schema="emerald" tableName="REPRESENTATIVES_ML" domainObjectName="REPRESENTATIVES_ML" 
+   enableCountByExample="false"
+   enableDeleteByExample="false"
+   enableSelectByExample="false"
+   enableUpdateByExample="false"/> -->
+   
  </context>
 </generatorConfiguration>

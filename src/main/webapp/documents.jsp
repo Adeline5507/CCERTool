@@ -23,12 +23,23 @@
 	         <th>Project ID</th>
 	         <th>Project Document Name</th>
 	         <th>Project Document TYPE ID</th>
+	         <th>Project Document ID</th>
 	         <!-- <th>Parse</th> -->
 	      </tr>
 		</thead>
 	</table>
+	
+	<iframe id="parseResult"> 
+		
+	</iframe>
+	
 </body>
 <script type="text/javascript">
+
+		document.getElementById("parseResult").width = document.body.clientWidth;
+		document.getElementById("parseResult").height = (window.screen.height-500)+"px";
+		
+		
 		var json = eval(<%=docList%>);
 		//alert("length:"+json.length);
 		var numPerPage = 25;
@@ -91,7 +102,10 @@
 				td = tr.insertCell(2);
 				td.innerHTML = doc.PROJECT_DOCUMENT_TYPE_ID;
 				td = tr.insertCell(3);
-				td.innerHTML = "<a href='javascript:doParse("+doc.PROJECT_ID+","+doc.PROJECT_DOCUMENT_TYPE_ID+")'>parse</a>";
+				td.innerHTML = doc.PROJECT_DOCUMENT_ID;
+				td = tr.insertCell(4);
+				
+				td.innerHTML = "<a href='javascript:doParse("+doc.PROJECT_ID+","+doc.PROJECT_DOCUMENT_TYPE_ID+","+doc.PROJECT_DOCUMENT_ID+")'>parse</a>";
 				trbegin++;
 			}
 			
@@ -103,6 +117,14 @@
 			//foot.insertCell(1).innerHTML="<strong>Current Page:"+currentPage+"</strong>";
 		}
 		
+		function doParse(pid,dtid,did){
+			document.getElementById("parseResult").src = "/doParse?PROJECT_ID="+pid+"&PROJECT_DOCUMENT_TYPE_ID="+dtid+"&PROJECT_DOCUMENT_ID="+did;
+			//document.getElementById("parseResult").reload();
+		}
+		
+		function doSave(project_document_id){
+			document.getElementById("parseResult").src = "/doSave?project_document_id="+project_document_id;
+		}
 		
 	</script>
 

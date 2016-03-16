@@ -1,6 +1,7 @@
 package com.thomsonreuters.ccertool.parse;
 
 import java.io.File;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -25,11 +26,11 @@ public class ParseUtil {
 	 * @param info
 	 * @return
 	 */
-	public static String findByRegEx(String regName,String reg,String info){
-		return findByRegEx(regName,reg,info,1);
+	public static String findByRegEx(String regName,String reg,String info,Map map){
+		return findByRegEx(regName,reg,info,1,map);
 	}
 	
-	public static String findByRegEx(String regName,String reg,String info,int groupIndex){
+	public static String findByRegEx(String regName,String reg,String info,int groupIndex,Map map){
 		//log.info("reg:"+reg);
 		Pattern pattern = Pattern.compile(reg,Pattern.UNIX_LINES);
 		Matcher matcher = pattern.matcher(info);
@@ -40,7 +41,7 @@ public class ParseUtil {
 		}else{
 			log.error(regName+" not found");
 		}
-		
+		map.put(regName, value);
 		return value;
 	}
 	

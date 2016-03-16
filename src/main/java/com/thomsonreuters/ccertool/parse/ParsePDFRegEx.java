@@ -37,12 +37,12 @@ public enum ParsePDFRegEx {
 	电子邮件	jszx-conch@163.com	REPRESENTATIVE_email	REPRESENTATIVES_ML,REPRESENTATIVES	
 	unfccc_url	http://cdm.unfccc.int/Projects/DB/TUEV-SUED1300286802.18/view	unfccc_url		
 */
-	PROJECT_NAME("项目活动名称([\\s\\S]*)项目类别2"),
-	PROJECT_CATEGORY("项目类别2([\\s\\S]*)项目设计文件版本"),
+	PROJECT_NAME("项目活动名称([\\s\\S]*?)\\s\\n"),
+	PROJECT_CATEGORY("项目类别2([\\s\\S]*?)\\s\\n"),
 	PPD_COMPLETE_DATE("项目设计文件完成日期([\\s\\S]*?)\\s\\n"),//TODO 确认
-	CDM_ID("CDM 注册号：([\\s\\S]*?)\\s"),
+	CDM_ID("CDM[\\s*]注册号：|CDM 注册号([\\s\\S]*?)\\s"),
 	PROJECT_DEVELOPER("项目业主([\\s\\S]*?)\\s\\n"),
-	PROJECT_TYPE("项目类型：([\\s\\S]*?)\\s\\n"),
+	PROJECT_TYPE("项目类型：|类别：([\\s\\S]*?)\\s\\n"),
 	//PROJECT_TYPE("项目类型：(?s)(.*?)"),
 	PROJECT_METHODOLOGY("方法学：([\\s\\S]*?)\\s\\n"),
 	PLANNED_ANNUAL_ER("预计的温室气体减排量|年均减排量：([\\s\\S]*?)\\s\\n"),

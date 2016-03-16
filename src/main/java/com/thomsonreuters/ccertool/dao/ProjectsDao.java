@@ -31,6 +31,9 @@ public class ProjectsDao {
 		return rsList;
 	}
 	
+	public void updateProjectInfo(ProjectVo vo){
+		String sql = "update projects ";
+	}
 	
 	
 }

@@ -11,7 +11,7 @@
 	<div style="text-align:center;padding-top:200px;">
 		<form id="searchForm" action="/getProjects">
 			<strong>项目名称：</strong><input type="text" size="60" name="projectName"/>
-			<input type="submit" value="查询""> 
+			<input type="submit" value="查询"> 
 		</form>
 		<div class="text-info">可以模糊查询，不填写的话查询所有中国项目</div>
 	</div>

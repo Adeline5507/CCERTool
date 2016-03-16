@@ -1,6 +1,7 @@
 package com.thomsonreuters.ccertool.service;
 
 import java.io.ByteArrayInputStream;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,12 +20,14 @@ public class PhaseThreeService {
 	@Autowired
 	ParsePhaseThree parser;
 	
-	public void monitorFileLoadAndParseInMemeory(ProjectDocumentVo vo) throws Exception{
+	public Map monitorFileLoadAndParseInMemeory(ProjectDocumentVo vo) throws Exception{
+		Map map = null;
 		log.info("PhaseThreeService begin");
 		byte[] bytes = dao.getProjectDocumentToMemory(vo);
 		log.info("PhaseThreeService get document in memory finished");
-		parser.parseProjectInfo(new ByteArrayInputStream(bytes));
+		map = parser.parseProjectInfo(new ByteArrayInputStream(bytes));
 		log.info("PhaseThreeService parse finished");
+		return map;
 	}
 
 }
