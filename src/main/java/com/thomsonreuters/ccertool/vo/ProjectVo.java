@@ -4,22 +4,22 @@ import java.util.Date;
 
 public class ProjectVo {
     
-    private Short projectId;
+    private int projectId;
 
     
-    private Short marketId;
+    private int marketId;
 
     
-    private Short countryStateId;
+    private int countryStateId;
 
     
-    private Short projectStageId;
+    private int projectStageId;
 
     
-    private Short projectTypeId;
+    private int projectTypeId;
 
     
-    private Short methodologyId;
+    private int methodologyId;
 
     
     private String projectName;
@@ -40,13 +40,13 @@ public class ProjectVo {
     private Date projectEndDate;
 
     
-    private Short projectIsStarted;
+    private int projectIsStarted;
 
     
-    private Short projectInitialCapacity;
+    private int projectInitialCapacity;
 
     
-    private Short projectPlannedCapacity;
+    private int projectPlannedCapacity;
 
     
     private String projectCapacityComment;
@@ -64,16 +64,16 @@ public class ProjectVo {
     private Date projectUpdated;
 
     
-    private Short visibilityId;
+    private int visibilityId;
 
     
     private String projectInternalComment;
 
     
-    private Short standardId;
+    private int standardId;
 
     
-    private Short projectAvailability;
+    private int projectAvailability;
 
     
     private Date projectListingDate;
@@ -85,7 +85,7 @@ public class ProjectVo {
     private Date projectIssuanceDate;
 
     
-    private Short productId;
+    private int productId;
 
     
     private Date projectValidationDate;
@@ -98,64 +98,121 @@ public class ProjectVo {
 
     
     private Date requestForRegistrationDate;
-
     
-    public Short getProjectId() {
+    private int projectCategoryId;
+    private Float latitude;
+    private Float longitude;
+    private Number plannedAnnualEr;
+    private Number cmdId;
+
+    public Number getCmdId() {
+		return cmdId;
+	}
+
+
+	public void setCmdId(Number cmdId) {
+		this.cmdId = cmdId;
+	}
+
+
+	public int getProjectCategoryId() {
+		return projectCategoryId;
+	}
+
+
+	public void setProjectCategoryId(int projectCategoryId) {
+		this.projectCategoryId = projectCategoryId;
+	}
+
+
+	public Float getLatitude() {
+		return latitude;
+	}
+
+
+	public void setLatitude(float latitude) {
+		this.latitude = latitude;
+	}
+
+
+	public Float getLongitude() {
+		return longitude;
+	}
+
+
+	public void setLongitude(float longitude) {
+		this.longitude = longitude;
+	}
+
+
+	public Number getPlannedAnnualEr() {
+		return plannedAnnualEr;
+	}
+
+
+	public void setPlannedAnnualEr(Number plannedAnnualEr) {
+		this.plannedAnnualEr = plannedAnnualEr;
+	}
+
+
+	
+    
+    public int getProjectId() {
         return projectId;
     }
 
     
-    public void setProjectId(Short projectId) {
+    public void setProjectId(int projectId) {
         this.projectId = projectId;
     }
 
     
-    public Short getMarketId() {
+    public int getMarketId() {
         return marketId;
     }
 
     
-    public void setMarketId(Short marketId) {
+    public void setMarketId(int marketId) {
         this.marketId = marketId;
     }
 
     
-    public Short getCountryStateId() {
+    public int getCountryStateId() {
         return countryStateId;
     }
 
     
-    public void setCountryStateId(Short countryStateId) {
+    public void setCountryStateId(int countryStateId) {
         this.countryStateId = countryStateId;
     }
 
     
-    public Short getProjectStageId() {
+    public int getProjectStageId() {
         return projectStageId;
     }
 
     
-    public void setProjectStageId(Short projectStageId) {
+    public void setProjectStageId(int projectStageId) {
         this.projectStageId = projectStageId;
     }
 
     
-    public Short getProjectTypeId() {
+    public int getProjectTypeId() {
         return projectTypeId;
     }
 
     
-    public void setProjectTypeId(Short projectTypeId) {
+    public void setProjectTypeId(int projectTypeId) {
         this.projectTypeId = projectTypeId;
     }
 
     
-    public Short getMethodologyId() {
+    public int getMethodologyId() {
         return methodologyId;
     }
 
     
-    public void setMethodologyId(Short methodologyId) {
+    public void setMethodologyId(int methodologyId) {
         this.methodologyId = methodologyId;
     }
 
@@ -220,32 +277,32 @@ public class ProjectVo {
     }
 
     
-    public Short getProjectIsStarted() {
+    public int getProjectIsStarted() {
         return projectIsStarted;
     }
 
     
-    public void setProjectIsStarted(Short projectIsStarted) {
+    public void setProjectIsStarted(int projectIsStarted) {
         this.projectIsStarted = projectIsStarted;
     }
 
     
-    public Short getProjectInitialCapacity() {
+    public int getProjectInitialCapacity() {
         return projectInitialCapacity;
     }
 
     
-    public void setProjectInitialCapacity(Short projectInitialCapacity) {
+    public void setProjectInitialCapacity(int projectInitialCapacity) {
         this.projectInitialCapacity = projectInitialCapacity;
     }
 
     
-    public Short getProjectPlannedCapacity() {
+    public int getProjectPlannedCapacity() {
         return projectPlannedCapacity;
     }
 
     
-    public void setProjectPlannedCapacity(Short projectPlannedCapacity) {
+    public void setProjectPlannedCapacity(int projectPlannedCapacity) {
         this.projectPlannedCapacity = projectPlannedCapacity;
     }
 
@@ -300,12 +357,12 @@ public class ProjectVo {
     }
 
     
-    public Short getVisibilityId() {
+    public int getVisibilityId() {
         return visibilityId;
     }
 
     
-    public void setVisibilityId(Short visibilityId) {
+    public void setVisibilityId(int visibilityId) {
         this.visibilityId = visibilityId;
     }
 
@@ -320,22 +377,22 @@ public class ProjectVo {
     }
 
     
-    public Short getStandardId() {
+    public int getStandardId() {
         return standardId;
     }
 
     
-    public void setStandardId(Short standardId) {
+    public void setStandardId(int standardId) {
         this.standardId = standardId;
     }
 
     
-    public Short getProjectAvailability() {
+    public int getProjectAvailability() {
         return projectAvailability;
     }
 
     
-    public void setProjectAvailability(Short projectAvailability) {
+    public void setProjectAvailability(int projectAvailability) {
         this.projectAvailability = projectAvailability;
     }
 
@@ -370,12 +427,12 @@ public class ProjectVo {
     }
 
     
-    public Short getProductId() {
+    public int getProductId() {
         return productId;
     }
 
     
-    public void setProductId(Short productId) {
+    public void setProductId(int productId) {
         this.productId = productId;
     }
 
