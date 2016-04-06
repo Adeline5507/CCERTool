@@ -26,11 +26,11 @@ public class ParseUtil {
 	 * @param info
 	 * @return
 	 */
-	public static String findByRegEx(String regName,String reg,String info,Map map){
+	public static String findByRegEx(String regName,String reg,String info,Map<String,String> map){
 		return findByRegEx(regName,reg,info,1,map);
 	}
 	
-	public static String findByRegEx(String regName,String reg,String info,int groupIndex,Map map){
+	public static String findByRegEx(String regName,String reg,String info,int groupIndex,Map<String,String> map){
 		//log.info("reg:"+reg);
 		Pattern pattern = Pattern.compile(reg,Pattern.UNIX_LINES);
 		Matcher matcher = pattern.matcher(info);

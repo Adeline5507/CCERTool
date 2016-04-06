@@ -20,7 +20,7 @@ public class ParsePhaseOne {
 	}
 
 	public Map parseProjectBasicInfo(InputStream in) throws IOException {
-		Map map = new HashMap();
+		Map map = new HashMap<String,String>();
 		try {
 			PDDocument doc = PDDocument.load(in);
 			PDFTextStripper s = new PDFTextStripper();

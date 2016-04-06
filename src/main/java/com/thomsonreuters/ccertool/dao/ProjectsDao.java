@@ -87,7 +87,7 @@ public class ProjectsDao {
 			updatePre = updatePre.substring(0,updatePre.length()-1);
 		}
 		
-		String sql = updatePre+" where project_id="+vo.getProductId();
+		String sql = updatePre+" where project_id="+vo.getProjectId();
 		log.info("sql:"+sql);
 		return jdbcTemplate.update(sql);
 	} 

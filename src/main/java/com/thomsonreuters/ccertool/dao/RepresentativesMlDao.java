@@ -7,9 +7,10 @@ import java.sql.SQLException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
+import org.springframework.stereotype.Service;
 
 import com.thomsonreuters.ccertool.vo.RepresentativesVo;
-
+@Service
 public class RepresentativesMlDao {
 
 	@Autowired JdbcTemplate jdbcTemplate;
