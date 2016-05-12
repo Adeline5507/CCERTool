@@ -112,7 +112,42 @@ public class ProjectDocumentDao {
 		return rsList;
 	}
 	
-	
+	public String getDocumentById(int id) throws Exception{
+		Connection conn=null;
+		PreparedStatement ps=null;
+		ResultSet rs=null;
+		String path=null;
+		try {
+			conn = dataSource.getConnection();
+			log.info("connection get");
+			String sql = "select * from project_documents where  PROJECT_DOCUMENT_ID=?";
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, id);
+			rs = ps.executeQuery();
+			log.info("resultset is returned");
+			if(rs.next()){
+				String fileName = rs.getString("REPORT_FILE_NAME");
+				path = "c:\\tmp\\"+fileName;
+				BufferedInputStream bis = new BufferedInputStream(rs.getBlob("REPORT_FILE_CONTENT").getBinaryStream());
+				BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(path));
+				byte[] buf = new byte[2048];
+				int hasRead = 0;
+				while((hasRead=bis.read(buf))>0){
+					bos.write(buf, 0, hasRead);
+				}
+				bos.close();
+				log.info("write to tmp is done");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally{
+			rs.close();
+			ps.close();
+			conn.close();
+		}
+		
+		return path;
+	}
 	
 
 }

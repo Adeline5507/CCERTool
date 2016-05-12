@@ -36,4 +36,9 @@ public class ProjectTypeDao {
 	
 	}
 	
+	public Number searchTypeIdByName(String name){
+		final String sql = "select PROJECT_TYPE_ID from PROJECT_TYPES_ML where PROJECT_TYPE_NAME='"+name+"'";
+		return jdbcTemplate.queryForObject(sql, Number.class);
+	}
+	
 }

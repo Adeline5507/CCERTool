@@ -46,4 +46,9 @@ public class PartnersDao {
 		//return null;
 		return keyHolder.getKey();
 	}
+	
+	public Number searchIdByName(String name){
+		final String sql = "select PARTNER_ID from PARTNERS_ML where PARTNER_NAME='"+name+"'";
+		return jdbcTemplate.queryForObject(sql, Number.class);
+	}
 }

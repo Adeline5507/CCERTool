@@ -98,7 +98,7 @@
 				td = tr.insertCell(0);
 				td.innerHTML = doc.PROJECT_ID;
 				td= tr.insertCell(1);
-				td.innerHTML = doc.REPORT_FILE_NAME; 
+				td.innerHTML = "<a href='/showFile?project_document_id="+doc.PROJECT_DOCUMENT_ID+"' target='_blank'>"+doc.REPORT_FILE_NAME+"</a>"; 
 				td = tr.insertCell(2);
 				td.innerHTML = doc.PROJECT_DOCUMENT_TYPE_ID;
 				td = tr.insertCell(3);
@@ -122,8 +122,12 @@
 			//document.getElementById("parseResult").reload();
 		}
 		
-		function doSave(project_document_id){
+		/* function doSave(project_document_id){
 			document.getElementById("parseResult").src = "/doSave?project_document_id="+project_document_id;
+		} */
+		
+		function showFile(project_document_id){
+			
 		}
 		
 	</script>

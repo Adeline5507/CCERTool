@@ -98,7 +98,7 @@
 		}
 		
 		function showDocuments(pid){
-			alert(pid);
+			//alert(pid);
 			self.location.href = "/getProjectDocuments?projectId="+pid;
 		}
 	</script>

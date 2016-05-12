@@ -97,13 +97,18 @@ public class CCERController {
 				request.getSession(true).setAttribute(project_document_id,map);
 				String html = "<html><head><title>result</title></head><body>";
 				response.getWriter().println(html);
-				response.getWriter().println("<input type=\"button\" value=\"save\" onclick=\"window.parent.doSave("+project_document_id+")\"/><br/>");
+				response.getWriter().println("<input type=\"button\" value=\"save\" onclick=\"document.parseResultForm.submit()\"/><br/>");
+				response.getWriter().println("<form name=\"parseResultForm\" method=\"post\" action=\"/doSave?project_document_id="+project_document_id+"\">");
 				//response.getWriter().println("<input type=\"button\" value=\"save\" onclick=\"self.location.href=/doSave?project_document_id="+project_document_id+"\"/><br/>");
+				response.getWriter().println("<table>");
 				for (Iterator iterator = map.keySet().iterator(); iterator.hasNext();) {
 					String key = (String)iterator.next();
-					response.getWriter().println("<div style=\"padding:3px; \">"+key+":"+(String)map.get(key)+"</div>"); 
+					response.getWriter().println("<tr><td>"+key+":&nbsp;&nbsp;&nbsp;&nbsp;</td><td><input type='text' size='80' name='"+key+"' value='"+(String)map.get(key)+"'/>");
+					//response.getWriter().println("<div style=\"padding:3px; \">"+key+":&nbsp;&nbsp;&nbsp;&nbsp;<input type='text' size='80' name='"+key+"' value='"+(String)map.get(key)+"'/></div>"); 
 				}
-				response.getWriter().println("<input type=\"button\" value=\"save\" onclick=\"window.parent.doSave("+project_document_id+")\"/>");
+				response.getWriter().println("</table>");
+				//response.getWriter().println("<input type=\"button\" value=\"save\" onclick=\"window.parent.doSave("+project_document_id+")\"/>");
+				response.getWriter().println("</form>");
 				response.getWriter().println("</body></html>");
     		}else{
     			response.getWriter().println("该文档暂时不支持解析");
@@ -115,13 +120,32 @@ public class CCERController {
 		}
     }
     
-    @RequestMapping(value = "/doSave", method = RequestMethod.GET)
+    @RequestMapping(value = "/doSave", method = RequestMethod.POST)
     @ResponseBody
     public String doSave(HttpServletRequest request,HttpServletResponse response){
     	String project_document_id = request.getParameter("project_document_id"); 
     	log.info("project_document_id:"+project_document_id);
     	Map map = (Map)request.getSession().getAttribute(project_document_id);
-    	log.info("map:"+map);
+    	log.info("map before update:"+map);
+    	//update the map with form value
+    	for (Iterator iterator = map.keySet().iterator(); iterator.hasNext();) {
+			String key = (String) iterator.next();
+			map.put(key, request.getParameter(key));
+		}
+    	log.info("map after update:"+map);
     	return project_document_id;
+    }
+    
+    @RequestMapping(value = "/showFile", method = RequestMethod.GET)
+    @ResponseBody
+    public void showFile(HttpServletRequest request,HttpServletResponse response) throws NumberFormatException, Exception{
+    	String project_document_id = request.getParameter("project_document_id"); 
+    	log.info("project_document_id:"+project_document_id);
+    	ProjectDocumentVo vo = new ProjectDocumentVo();
+    	String path = projectDocumentDao.getDocumentById(Integer.parseInt(project_document_id));
+    	String html = "<html><head><title>File Content</title></head><body>";
+    	response.getWriter().println(html);
+    	response.getWriter().print("The file has been downloaded to:"+path);
+    	response.getWriter().println("</body></html>");
     }
 }

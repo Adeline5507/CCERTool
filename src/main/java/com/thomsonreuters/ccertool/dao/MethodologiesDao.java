@@ -38,4 +38,10 @@ public class MethodologiesDao {
 		//return null;
 		return keyHolder.getKey();
 	}
+	
+	public Number searchIdByName(String name){
+		final String sql = "select METHODOLOGY_ID from METHODOLOGIES_ML where METHODOLOGY_NAME='"+name+"'";
+		return jdbcTemplate.queryForObject(sql, Number.class);
+		
+	}
 }

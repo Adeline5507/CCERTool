@@ -32,7 +32,10 @@ public class ProjectCategoriesDao {
 			},keyHolder);		
 		//return null;
 		return keyHolder.getKey();
+	}
 	
-	
+	public Number searchCategoryIdByName(String name){
+		final String sql = "select PROJECT_CATEGORY_ID from PROJECT_CATEGORIES_ML where name='"+name+"'";
+		return jdbcTemplate.queryForObject(sql, Number.class);
 	}
 }
