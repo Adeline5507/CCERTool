@@ -1,6 +1,6 @@
 package com.thomsonreuters.ccertool.service;
 
-import java.util.Date;
+import java.text.ParseException;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +24,7 @@ import com.thomsonreuters.ccertool.vo.ProjectVo;
 import com.thomsonreuters.ccertool.vo.RepresentativesVo;
 
 @Service
-public class storePhaseOneService {
+public class StorePhaseOneService {
 	
 	private @Autowired ProjectCategoriesDao projectCategoriesDao;
 	private @Autowired ProjectTypeDao projectTypeDao;
@@ -36,9 +36,7 @@ public class storePhaseOneService {
 	private @Autowired ProjectHasRepresentativeDao projectHasRepresentativeDao;
 	private @Autowired ProjectsDao projectsDao;
 	
-	private ProjectCategoriesVo projectCategoriesVo;
-	private ProjectTypeVo projectTypeVo;
-	private MethodologiesVo methodologiesVo;
+	
 	private PartnersVo partnersVo;
 	private PartnersVo partnersMlVo;
 	private RepresentativesVo representativesVo;
@@ -48,22 +46,15 @@ public class storePhaseOneService {
 	/**
 	 * 把解析的内容存库
 	 * @param map
+	 * @throws ParseException 
 	 */
-	public void storeInfo(int projectId,Map<String,String> map){
-
-		projectCategoriesVo = new ProjectCategoriesVo();
-		projectCategoriesVo.setName(map.get("PROJECT_CATEGORY"));
-		projectCategoriesVo.setDescription(map.get("PROJECT_CATEGORY"));
-		Number projectCategoryId = projectCategoriesDao.insertProjectCategory(projectCategoriesVo);
+	public void storeInfo(int projectId,Map<String,String> map) throws ParseException{
 		
-		projectTypeVo = new ProjectTypeVo();
-		//TODO projectTypeVo
-		Number projectTypeId = projectTypeDao.insertProjectType(projectTypeVo);
+		Number projectCategoryId = projectCategoriesDao.searchCategoryIdByName(map.get("PROJECT_CATEGORY"));
 		
-		methodologiesVo = new MethodologiesVo();
-		methodologiesVo.setMethodologyName(map.get("PROJECT_METHODOLOGY"));
-		methodologiesVo.setMethodologyCreated(new Date());
-		Number methodologyId = methodologiesDao.insertMethodology(methodologiesVo);
+		Number projectTypeId = projectTypeDao.searchTypeIdByName(map.get("PROJECT_TYPE"));
+	
+		Number methodologyId = methodologiesDao.searchIdByName(map.get("PROJECT_METHODOLOGY"));
 		
 		partnersVo = new PartnersVo();
 		partnersVo.setPartnerName(map.get("PROJECT_DEVELOPER"));
@@ -76,11 +67,11 @@ public class storePhaseOneService {
 		partnersVo.setRepresentativeRoleId(26);
 		Number partnerId = partnersDao.insertPartner(partnersVo);
 		
-		partnersMlVo = new PartnersVo();
-		partnersMlVo.setPartnerId(partnerId.intValue());
-		partnersMlVo.setPartnerName(map.get("PROJECT_DEVELOPER"));
-		partnersMlVo.setPartnerAddress(map.get("PROJECT_HOST_ADDRESS"));
-		partnersMlDao.insertPartner(partnersMlVo);
+//		partnersMlVo = new PartnersVo();
+//		partnersMlVo.setPartnerId(partnerId.intValue());
+//		partnersMlVo.setPartnerName(map.get("PROJECT_DEVELOPER"));
+//		partnersMlVo.setPartnerAddress(map.get("PROJECT_HOST_ADDRESS"));
+//		partnersMlDao.insertPartner(partnersMlVo);
 		
 		representativesVo = new RepresentativesVo();
 		representativesVo.setPartnerId(partnerId.intValue());
@@ -91,40 +82,40 @@ public class storePhaseOneService {
 		representativesVo.setRepresentativeEmail(map.get("REPRESENTATIVE_EMAIL"));
 		Number representativeId = representativesDao.insertRepresentative(representativesVo);
 		
-		RepresentativesMlVo = new RepresentativesVo();
-		RepresentativesMlVo.setRepresentativeId(representativeId.intValue());
-		RepresentativesMlVo.setRepresentativeName(map.get("REPRESENTATIVE_NAME"));
-		RepresentativesMlVo.setRepresentativeTitle(map.get("REPRESENTATIVE_TITLE"));
-		RepresentativesMlVo.setRepresentativePhone(map.get("REPRESENTATIVE_PHONE"));
-		RepresentativesMlVo.setRepresentativeEmail(map.get("REPRESENTATIVE_EMAIL"));
-		representativesMlDao.insertRepresentative(RepresentativesMlVo);
+//		RepresentativesMlVo = new RepresentativesVo();
+//		RepresentativesMlVo.setRepresentativeId(representativeId.intValue());
+//		RepresentativesMlVo.setRepresentativeName(map.get("REPRESENTATIVE_NAME"));
+//		RepresentativesMlVo.setRepresentativeTitle(map.get("REPRESENTATIVE_TITLE"));
+//		RepresentativesMlVo.setRepresentativePhone(map.get("REPRESENTATIVE_PHONE"));
+//		RepresentativesMlVo.setRepresentativeEmail(map.get("REPRESENTATIVE_EMAIL"));
+//		representativesMlDao.insertRepresentative(RepresentativesMlVo);
 		
-		projectVo = new ProjectVo();
-		projectVo.setProjectId(projectId);
-		projectVo.setProjectName(map.get("PROJECT_NAME"));
-		projectVo.setProjectCategoryId(projectCategoryId.intValue());
-		projectVo.setProjectApprovalDate(map.get("PPD_COMPLETE_DATE"));
-		projectVo.setCmdId(map.get("CDM_ID"));
-		projectVo.setProjectTypeId(projectTypeId.intValue());
-		projectVo.setMethodologyId(methodologyId.intValue());
-		projectVo.setPlannedAnnualEr(map.get("PLANNED_ANNUAL_ER"));
-		projectVo.setProjectStartDate(map.get("ER_START_DATE"));
-		projectVo.setProjectEndDate(map.get("ER_END_DATE"));
-		projectVo.setProjectLocation(map.get("PROJECT_LOCATION_STATE"));
-		projectVo.setLatitude(map.get("LATITUDE"));
-		projectVo.setLongitude(map.get("LONGITUDE"));
-		projectVo.setProjectPlannedCapacity(map.get("INSTALLED_CAPACITY"));
-		projectVo.setProjectCapacityComment(map.get("ANNUAL_ELECTRICITY_PRODUCTION"));
-		projectVo.setProjectInvestorComment(map.get("PROJECT_INVESTMENT"));
-		projectsDao.updateProjectInfo(projectVo);
 		
 		projectHasRepresentativeVo= new ProjectHasRepresentativeVo();
 		projectHasRepresentativeVo.setProjectId(projectId);
 		projectHasRepresentativeVo.setRepresentativeId(representativeId.intValue());
 		projectHasRepresentativeVo.setRepresentativeRoleId(26);
 		
+		projectHasRepresentativeDao.insertProjectHasRepresentative(projectHasRepresentativeVo);
+		projectVo = new ProjectVo();
+		projectVo.setProjectId(projectId);
+		projectVo.setProjectName(map.get("PROJECT_NAME"));
+		projectVo.setProjectCategoryId(projectCategoryId.intValue());
+		projectVo.setProjectApprovalDate(StoreUtil.stringToDate(map.get("PPD_COMPLETE_DATE")));
+		projectVo.setCmdId(StoreUtil.stringToInt(map.get("CDM_ID")));
+		projectVo.setProjectTypeId(projectTypeId.intValue());
+		projectVo.setMethodologyId(methodologyId.intValue());
+		projectVo.setPlannedAnnualEr(StoreUtil.stringToFloat(map.get("PLANNED_ANNUAL_ER")));
+		projectVo.setProjectStartDate(StoreUtil.stringToDate(map.get("ER_START_DATE")));
+		projectVo.setProjectEndDate(StoreUtil.stringToDate(map.get("ER_END_DATE")));
+		projectVo.setProjectLocation(map.get("PROJECT_LOCATION_STATE"));
+		projectVo.setLatitude(StoreUtil.stringToFloat(map.get("LATITUDE")));
+		projectVo.setLongitude(StoreUtil.stringToFloat(map.get("LONGITUDE")));
+		projectVo.setProjectPlannedCapacity(StoreUtil.stringToInt(map.get("INSTALLED_CAPACITY")));
+		projectVo.setProjectCapacityComment(map.get("ANNUAL_ELECTRICITY_PRODUCTION"));
+		projectVo.setProjectInvestorComment(map.get("PROJECT_INVESTMENT"));
+		projectsDao.updateProjectInfo(projectVo);
 		
-	
 
 	}
 	
