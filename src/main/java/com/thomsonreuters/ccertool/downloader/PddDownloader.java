@@ -28,7 +28,7 @@ public class PddDownloader {
 	
 	private static final String MAIN_URL = "http://cdm.ccchina.gov.cn/";
 	private static final String PDD_MAIN_URL = "http://cdm.ccchina.gov.cn/sdxm.aspx?clmId=163";
-	private static final String SAVED_DIR = "\\\\copp-tenfile01\\PointCarbon\\Common\\CCER\\issuance\\pdd\\";
+	public static final String SAVED_DIR = "\\\\copp-tenfile01\\PointCarbon\\Common\\CCER\\issuance\\pdd\\";
 	private static final String TIME_FILE = "latesttime.txt";
 	private static final String TMP_FILE = "tmp.pdf.tmp";
 	private static final Logger log = LoggerFactory.getLogger(PddDownloader.class);
@@ -39,8 +39,8 @@ public class PddDownloader {
 	}
 	
 	public void doDownLoad() {
-		StringBuffer res = new StringBuffer("本次下载时间："+new Date()+"\n");
-		res.append("\n").append("下载文件：").append("\n");
+		StringBuffer res = new StringBuffer("本次下载时间："+new Date());
+		res.append("\r\n").append("下载文件：").append("\r\n");
 		try{
 			List<String> urls = getToBeDownloadedPdfUrl();
 			if(urls.size()==0){
@@ -49,7 +49,7 @@ public class PddDownloader {
 			}else{
 				for(String url:urls){
 					String filename = downloadPdf(url);
-					res.append(filename).append("\n");
+					res.append(filename).append("\r\n");
 				}
 				
 				//更新timestamp

@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.commons.collections.map.ListOrderedMap;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.util.PDFTextStripper;
 import org.slf4j.Logger;
@@ -20,7 +21,7 @@ public class ParsePhaseOne {
 	}
 
 	public Map parseProjectBasicInfo(InputStream in) throws IOException {
-		Map map = new HashMap<String,String>();
+		Map<String, String> map = ListOrderedMap.decorate(new HashMap<String,String>());  
 		try {
 			PDDocument doc = PDDocument.load(in);
 			PDFTextStripper s = new PDFTextStripper();

@@ -9,6 +9,7 @@ import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.thomsonreuters.ccertool.downloader.PddDownloader;
 import com.thomsonreuters.ccertool.parse.ParsePhaseOne;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -21,8 +22,8 @@ public class ParsePhaseOneTest {
 		 InputStream input;
 		try {
 			System.out.println("========================解析结果 begin=================================");
-			//input = new FileInputStream("C:\\Users\\U6036058\\Documents\\workfiles\\Task\\CCER-HONGLIANG\\芜湖海螺水泥有限公司218MW余热发电工程.pdf");
-			input = new FileInputStream("C:\\tmp\\CGN Lichuan CH PDD.pdf");
+			//input = new FileInputStream("c:\\tmp\\CGN Lichuan CH PDD.pdf");
+			input = new FileInputStream(PddDownloader.SAVED_DIR+"20160517084329183440.pdf");
 			phaseOne.parseProjectBasicInfo(input);
 			System.out.println("========================解析结果 end=================================");
 		} catch (FileNotFoundException e) {

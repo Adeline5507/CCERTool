@@ -1,8 +1,10 @@
 package com.thomsonreuters.ccertool.service;
 
 import java.io.ByteArrayInputStream;
+import java.io.File;
 import java.io.FileInputStream;
-import java.util.HashMap;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Map;
 
 import org.slf4j.Logger;
@@ -11,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.thomsonreuters.ccertool.dao.ProjectDocumentDao;
+import com.thomsonreuters.ccertool.downloader.PddDownloader;
 import com.thomsonreuters.ccertool.parse.ParsePhaseOne;
 import com.thomsonreuters.ccertool.parse.ParseUtil;
 import com.thomsonreuters.ccertool.vo.ProjectDocumentVo;
@@ -38,6 +41,13 @@ public class PhaseOneService {
 		log.info("PhaseOneService get document in memory finished");
 		Map map = parser.parseProjectBasicInfo(new ByteArrayInputStream(bytes));
 		log.info("PhaseOneService parse finished");
+		return map;
+	}
+	
+	public Map pddParse(String name) throws Exception{
+		log.info("pddParse begin");
+		Map map = parser.parseProjectBasicInfo(new FileInputStream(PddDownloader.SAVED_DIR+name));
+		log.info("pddParse finished");
 		return map;
 	}
 
