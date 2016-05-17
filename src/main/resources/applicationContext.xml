@@ -8,7 +8,48 @@
   <context:property-placeholder location="classpath:config.properties,classpath:db.properties" />
   <!-- DB beans.   -->
   <import resource="classpath:spring-db.xml"/>
-  <context:component-scan base-package="com.thomsonreuters.ccertool.*"/>
+  <context:component-scan base-package="com.thomsonreuters.ccertool.*">
+   <!-- <context:exclude-filter type="assignable" expression="com.thomsonreuters.ccertool.downloader.PddDownloader"/> -->
+  </context:component-scan>
   <!-- Jetty (web) context. -->
   <!-- <import resource="classpath:jetty-server.xml" /> -->
+  
+  
+
+    <!-- 使用MethodInvokingJobDetailFactoryBean，任务类可以不实现Job接口，通过targetMethod指定调用方法-->
+    <bean id="taskJob" class="com.thomsonreuters.ccertool.downloader.PddDownloader"/>
+    <bean id="jobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="group" value="job_work"/>
+        <property name="name" value="job_work_name"/>
+        <!--false表示等上一个任务执行完后再开启新的任务-->
+        <property name="concurrent" value="false"/>
+        <property name="targetObject">
+            <ref bean="taskJob"/>
+        </property>
+        <property name="targetMethod">
+            <value>doDownLoad</value>
+        </property>
+    </bean>
+    <!--  调度触发器 -->
+    <bean id="myTrigger"
+          class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="name" value="work_default_name"/>
+        <property name="group" value="work_default"/>
+        <property name="jobDetail">
+            <ref bean="jobDetail" />
+        </property>
+        <property name="cronExpression">
+            <value>0 0 24 * * ?</value>
+        </property>
+    </bean>
+    <!-- 调度工厂 -->
+    <bean id="scheduler" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+        <property name="triggers">
+            <list>
+                <ref bean="myTrigger"/>
+            </list>
+        </property>
+    </bean>
+
+  
 </beans>

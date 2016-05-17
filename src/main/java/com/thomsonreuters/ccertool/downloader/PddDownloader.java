@@ -24,6 +24,7 @@ import java.util.regex.Pattern;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+
 public class PddDownloader {
 	
 	private static final String MAIN_URL = "http://cdm.ccchina.gov.cn/";
@@ -33,12 +34,10 @@ public class PddDownloader {
 	private static final String TMP_FILE = "tmp.pdf.tmp";
 	private static final Logger log = LoggerFactory.getLogger(PddDownloader.class);
 	
-	public static void main(String[] args){
-		PddDownloader downloader = new PddDownloader();
-		downloader.doDownLoad();
-	}
+	
 	
 	public void doDownLoad() {
+		log.info("begin download");
 		StringBuffer res = new StringBuffer("本次下载时间："+new Date());
 		res.append("\r\n").append("下载文件：").append("\r\n");
 		try{
