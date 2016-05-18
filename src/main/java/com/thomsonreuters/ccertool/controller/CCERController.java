@@ -286,6 +286,7 @@ public class CCERController {
     @RequestMapping(value = "/manualDownload", method = RequestMethod.GET)
     @ResponseBody
     public void manualDownload(HttpServletRequest request,HttpServletResponse response) throws IOException{
+    	response.setHeader("Content-Type","application/x-javascript"); 
 		response.getWriter().write("begin download...");
 		response.getWriter().flush();
 		StringBuffer res = new StringBuffer("本次下载时间："+new Date());
