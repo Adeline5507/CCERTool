@@ -28,13 +28,13 @@
 			<br/>
 			<a href="javascript:doManuldownload()">点此手动下载</a>
 	</div>
-	<div id="progressText">
+	<!-- <div id="progressText">
 		
-	</div> 
+	</div -->
 	
-	<!-- <iframe id="downloadResult"> 
+	<iframe id="downloadResult"> 
 		
-	</iframe> -->
+	</iframe>
 	
 	<script type="text/javascript">
 		/* function doManuldownload(){
@@ -42,8 +42,9 @@
 		} */
 		
 		function doManuldownload(){
-			var t = document.getElementById("progressText"); 
-			t.innerHTML = "loading...";
+			var downloadResultDoc = document.getElementById("downloadResult").contentWindow.document; 
+			//var resContainer = document.getElementById("progressText");
+			//downloadResultDoc.write("Loading...");
 			var xhr = new window.XMLHttpRequest();
 			if(!window.XMLHttpRequest){
 			try {
@@ -53,25 +54,23 @@
 			xhr.open("get","/manualDownload");
 			var oldSize=0;
 			xhr.onreadystatechange = function(){
-				if(xhr.readyState > 2){
+				 if(xhr.readyState > 2){
 					var tmpText = xhr.responseText.substring(oldSize);
 					oldSize = xhr.responseText.length;
 					if(tmpText.length > 0 ){
-						// 设置文本
-						t.innerHTML = tmpText;
-					}
-				}
-				if(xhr.readyState == 4){
-					// 请求执行完毕
-					t.innerHTML = "执行完毕";
-					
-				}
+						downloadResultDoc.write(tmpText);
+						downloadResultDoc.write("<br/>");
+					} 
+				} 
+				 if(xhr.readyState==4){
+					downloadResultDoc.writeln("执行完毕");
+				} 
 			}
 			xhr.send(null); 
 		}
 		
-		/* document.getElementById("downloadResult").width = document.body.clientWidth;
-		document.getElementById("downloadResult").height = (window.screen.height-500)+"px"; */
+		 document.getElementById("downloadResult").width = document.body.clientWidth;
+		document.getElementById("downloadResult").height = (window.screen.height-500)+"px";  
 </script>
 </body>
 

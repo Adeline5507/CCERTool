@@ -286,21 +286,24 @@ public class CCERController {
     @RequestMapping(value = "/manualDownload", method = RequestMethod.GET)
     @ResponseBody
     public void manualDownload(HttpServletRequest request,HttpServletResponse response) throws IOException{
-    	response.getWriter().println("<script>");
-		response.getWriter().println("document.write('<div>begin download...</div>');");
+		response.getWriter().write("begin download...");
+		response.getWriter().flush();
 		StringBuffer res = new StringBuffer("本次下载时间："+new Date());
 		res.append("\r\n").append("下载文件：").append("\r\n");
 		try{
 			List<String> urls = pddDownloader.getToBeDownloadedPdfUrl();
 			if(urls.size()==0){
-				response.getWriter().println("document.write('<div>There are no new files to download</div>');");
+				response.getWriter().write("There are no new files to download");
+				response.getWriter().flush();
 				res.append("本次没有要下载的文件，所下载文件已经最新");
 			}else{
 				for(String url:urls){
-					response.getWriter().println("document.write('<div>begin download file:"+url+"</div>');");
+					response.getWriter().write("begin download file");
+					response.getWriter().flush();
 					String filename = pddDownloader.downloadPdf(url);
 					res.append(filename).append("\r\n");
-					response.getWriter().println("document.write('<div>finished download file:"+url+"</div>');");
+					response.getWriter().write("finished download file:"+url);
+					response.getWriter().flush();
 				}
 				
 				//更新timestamp
@@ -308,14 +311,13 @@ public class CCERController {
 			}
 			
 		}catch(Exception e){
-			response.getWriter().println("document.write('<div>error happend when downloading pdf:'"+e.getStackTrace()+"'</div>');");
+			response.getWriter().write("error happend when downloading pdf:'"+e.getStackTrace());
+			response.getWriter().flush();
 			res.append("下载过程出现错误，具体查看 downloadPdf.log");
 		}
 		
 		//把下载结果概要写入文件
 		pddDownloader.writeStringToFile(PddDownloader.SAVED_DIR+"result.txt",res.toString());
-		
-		response.getWriter().println("</script>");
 	
     }
     public static void main(String[] args){}
