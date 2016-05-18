@@ -38,7 +38,7 @@ public class PddDownloader {
 	
 	public void doDownLoad() {
 		log.info("begin download");
-		StringBuffer res = new StringBuffer("本次下载时间："+new Date());
+		StringBuffer res = new StringBuffer("下载时间："+new Date());
 		res.append("\r\n").append("下载文件：").append("\r\n");
 		try{
 			List<String> urls = getToBeDownloadedPdfUrl();
@@ -133,7 +133,7 @@ public class PddDownloader {
 	}
 	
 	
-	private void writeStringToFile(String path,String content){
+	public void writeStringToFile(String path,String content){
 		FileWriter fw;
 		BufferedWriter bw ;
 		try {
@@ -169,7 +169,7 @@ public class PddDownloader {
 	}
 	
 	
-	private void writeLatestTimestampToFile(String timestamp) throws Exception{
+	public void writeLatestTimestampToFile(String timestamp) throws Exception{
 		writeStringToFile(SAVED_DIR+TIME_FILE,timestamp);
 	}
 	
@@ -210,7 +210,7 @@ public class PddDownloader {
 	
 	
 	
-	private String getTimestampFromUrl(String url){
+	public String getTimestampFromUrl(String url){
 		String timestamp = null;
 		Pattern p = Pattern
 				.compile("archiver/cdmcn/UpFile/Files/Default/(\\d+).pdf");

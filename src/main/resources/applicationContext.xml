@@ -39,7 +39,7 @@
             <ref bean="jobDetail" />
         </property>
         <property name="cronExpression">
-            <value>0 0 24 * * ?</value>
+            <value>59 59 23 * * ?</value>
         </property>
     </bean>
     <!-- 调度工厂 -->
