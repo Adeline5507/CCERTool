@@ -1,10 +1,14 @@
 package com.thomsonreuters.ccertool.controller;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.FilenameFilter;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -39,9 +43,25 @@ public class CCERController {
     private @Autowired PhaseThreeService phaseThreeService;
     private @Autowired ProjectsDao projectsDao;
     private @Autowired ProjectDocumentDao projectDocumentDao;
+    private @Autowired PddDownloader pddDownloader;
+//    @RequestMapping(value = "/", method = RequestMethod.GET)
+//    public String index() throws Exception {
+//        return "index";
+//    }
+    
+    
     @RequestMapping(value = "/", method = RequestMethod.GET)
-    public String index() throws Exception {
-        return "index";
+    public String index(HttpServletRequest request,HttpServletResponse response) throws Exception {
+    	StringBuffer sb = new StringBuffer("");
+    	BufferedReader br = new BufferedReader(new FileReader(PddDownloader.SAVED_DIR+"result.txt"));
+    	String  thisLine = null;
+    
+    	while((thisLine = br.readLine())!=null){
+    		
+    		sb.append(thisLine).append(",");
+    	}
+    	request.setAttribute("result", sb.toString().trim());
+    	return "download";
     }
 
     //@ResponseBody
@@ -56,7 +76,7 @@ public class CCERController {
     	
     	mapper = new ObjectMapper();
     	try {
-			json=mapper.writeValueAsString(pList);//æŠŠmapæˆ–è€…æ˜¯listè½¬æ�¢æˆ�
+			json=mapper.writeValueAsString(pList);
 		} catch (JsonProcessingException e) {
 			e.printStackTrace();
 		}
@@ -263,6 +283,40 @@ public class CCERController {
 			e.printStackTrace();
 		}
     }
-    
+    @RequestMapping(value = "/manualDownload", method = RequestMethod.GET)
+    @ResponseBody
+    public void manualDownload(HttpServletRequest request,HttpServletResponse response) throws IOException{
+    	response.getWriter().println("<script>");
+		response.getWriter().println("document.write('<div>begin download...</div>');");
+		StringBuffer res = new StringBuffer("本次下载时间："+new Date());
+		res.append("\r\n").append("下载文件：").append("\r\n");
+		try{
+			List<String> urls = pddDownloader.getToBeDownloadedPdfUrl();
+			if(urls.size()==0){
+				response.getWriter().println("document.write('<div>There are no new files to download</div>');");
+				res.append("本次没有要下载的文件，所下载文件已经最新");
+			}else{
+				for(String url:urls){
+					response.getWriter().println("document.write('<div>begin download file:"+url+"</div>');");
+					String filename = pddDownloader.downloadPdf(url);
+					res.append(filename).append("\r\n");
+					response.getWriter().println("document.write('<div>finished download file:"+url+"</div>');");
+				}
+				
+				//更新timestamp
+				pddDownloader.writeLatestTimestampToFile(pddDownloader.getTimestampFromUrl(urls.get(0)));
+			}
+			
+		}catch(Exception e){
+			response.getWriter().println("document.write('<div>error happend when downloading pdf:'"+e.getStackTrace()+"'</div>');");
+			res.append("下载过程出现错误，具体查看 downloadPdf.log");
+		}
+		
+		//把下载结果概要写入文件
+		pddDownloader.writeStringToFile(PddDownloader.SAVED_DIR+"result.txt",res.toString());
+		
+		response.getWriter().println("</script>");
+	
+    }
     public static void main(String[] args){}
 }
