@@ -17,12 +17,12 @@ public class MethodologiesDaoTest {
 	@Autowired MethodologiesDao dao;
 	@Test
 	public void insertMethodologyTest(){
-		MethodologiesVo vo = new MethodologiesVo();
-		vo.setMethodologyName("adeline_test4");
-		vo.setMethodologyDescription("desc");
-		vo.setMethodologyCreated(new Date());
-		vo.setMethodologyUpdated(new Date());
-		Number num = dao.insertMethodology(vo);
-		System.out.println(num.intValue());
+//		MethodologiesVo vo = new MethodologiesVo();
+//		vo.setMethodologyName("adeline_test4");
+//		vo.setMethodologyDescription("desc");
+//		vo.setMethodologyCreated(new Date());
+//		vo.setMethodologyUpdated(new Date());
+//		Number num = dao.insertMethodology(vo);
+//		System.out.println(num.intValue());
 	}
 }

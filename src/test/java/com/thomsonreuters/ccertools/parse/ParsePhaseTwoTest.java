@@ -15,9 +15,9 @@ public class ParsePhaseTwoTest {
 	ParsePhaseTwo phaseTwo = new ParsePhaseTwo();
 	@Test
 	public void parseTest() throws ParserException, IOException{
-		System.out.println("========================解析结果 begin=================================");
-		phaseTwo.getPhaseTwoInfo("http://cdm.ccchina.gov.cn/Detail.aspx?newsId=47637&TId=164");
-		System.out.println("========================解析结果 end=================================");
+		//System.out.println("========================解析结果 begin=================================");
+		//phaseTwo.getPhaseTwoInfo("http://cdm.ccchina.gov.cn/Detail.aspx?newsId=47637&TId=164");
+		//System.out.println("========================解析结果 end=================================");
 	
 	}
 }

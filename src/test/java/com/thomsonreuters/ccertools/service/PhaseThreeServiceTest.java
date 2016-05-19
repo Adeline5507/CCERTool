@@ -15,9 +15,9 @@ public class PhaseThreeServiceTest {
 
 	@Test
 	public void monitorFileLoadAndParseInMemeoryTest() throws Exception{
-		ProjectDocumentVo vo = new ProjectDocumentVo();
-		vo.setProjectId(18084);
-		vo.setProjectDocumentTypeId(9);
-		service.monitorFileLoadAndParseInMemeory(vo);
+//		ProjectDocumentVo vo = new ProjectDocumentVo();
+//		vo.setProjectId(18084);
+//		vo.setProjectDocumentTypeId(9);
+//		service.monitorFileLoadAndParseInMemeory(vo);
 	}
 }

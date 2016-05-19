@@ -16,6 +16,6 @@ public class ProjectsDaoTest {
 	private ProjectsDao dao;
 	@Test
 	public void searchProjectInfoTest(){
-		dao.searchProjectInfo(new ProjectVo());
+//		dao.searchProjectInfo(new ProjectVo());
 	}
 }

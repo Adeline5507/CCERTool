@@ -25,18 +25,18 @@ public class PhaseOneServiceTest {
 //	}
 	@Test
 	public void pddLoadAndParseInMemoryTest() throws Exception{
-		ProjectDocumentVo vo = new ProjectDocumentVo();
-		vo.setProjectId(18084);
-		vo.setProjectDocumentTypeId(8);
-		service.pddLoadAndParseInMemory(vo);
+//		ProjectDocumentVo vo = new ProjectDocumentVo();
+//		vo.setProjectId(18084);
+//		vo.setProjectDocumentTypeId(8);
+//		service.pddLoadAndParseInMemory(vo);
 		
 	}
 	@Test
 	public void booleanValueTest(){
-		if(test){
-			System.out.println("test is true");
-		}else{
-			System.out.println("test is false");
-		}
+//		if(test){
+//			System.out.println("test is true");
+//		}else{
+//			System.out.println("test is false");
+//		}
 	}
 }

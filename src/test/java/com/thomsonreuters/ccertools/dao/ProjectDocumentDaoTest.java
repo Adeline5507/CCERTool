@@ -16,9 +16,9 @@ public class ProjectDocumentDaoTest {
 	private ProjectDocumentDao dao;
 	@Test
 	public void getProjectDocumentTest() throws Exception{
-		ProjectDocumentVo vo = new ProjectDocumentVo();
-		vo.setProjectDocumentId(2005);
-		dao.getProjectDocument(vo);
+//		ProjectDocumentVo vo = new ProjectDocumentVo();
+//		vo.setProjectDocumentId(2005);
+//		dao.getProjectDocument(vo);
 	}
 	
 }

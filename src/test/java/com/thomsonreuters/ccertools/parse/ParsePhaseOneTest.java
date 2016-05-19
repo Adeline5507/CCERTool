@@ -20,19 +20,12 @@ public class ParsePhaseOneTest {
 	public void parseTest(){
 
 		 InputStream input;
-		try {
-			System.out.println("========================解析结果 begin=================================");
+			//System.out.println("========================解析结果 begin=================================");
 			//input = new FileInputStream("c:\\tmp\\CGN Lichuan CH PDD.pdf");
-			input = new FileInputStream(PddDownloader.SAVED_DIR+"20160517084329183440.pdf");
-			phaseOne.parseProjectBasicInfo(input);
-			System.out.println("========================解析结果 end=================================");
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+			//input = new FileInputStream(PddDownloader.SAVED_DIR+"20160517084329183440.pdf");
+			//phaseOne.parseProjectBasicInfo(input);
+			//System.out.println("========================解析结果 end=================================");
+		
 		 
 	
 	}

@@ -16,8 +16,8 @@ public class ParsePhaseFourTest {
 	ParsePhaseFour phaseFour = new ParsePhaseFour();
 	@Test
 	public void parseTest() throws ParserException, IOException{
-		System.out.println("========================解析结果 begin=================================");
-		phaseFour.parseInfo("http://cdm.ccchina.gov.cn/zyDetail.aspx?newsId=50828&TId=169");
-		System.out.println("========================解析结果 end=================================");
+		//System.out.println("========================解析结果 begin=================================");
+		//phaseFour.parseInfo("http://cdm.ccchina.gov.cn/zyDetail.aspx?newsId=50828&TId=169");
+		//System.out.println("========================解析结果 end=================================");
 	}
 }
